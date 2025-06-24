@@ -9,7 +9,7 @@ import { FaReact } from "react-icons/fa6";
 import { IoLogoJavascript } from "react-icons/io5";
 import { ReactTyped } from "react-typed";
 import photo from "../assets/photo.jpg";
-import Resume from "../assets/Resume.pdf";
+import Resume from "../assets/AvinashResume.pdf";
 
 function Home() {
   return (

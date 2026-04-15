@@ -12,14 +12,9 @@ function Experience() {
 
       <br />
       <div className="max-w-screen-md mx-auto mb-8 p-8 border rounded-lg shadow-md hover:bg-slate-500">
-        <h1 className="text-3xl font-bold mb-5 ">Finance Project</h1>
+        <h1 className="text-3xl font-bold mb-5 ">Pulse QA</h1>
         <p>
-          I worked on backend architecture development using Node.js and
-          designed the frontend architecture with React.js. My responsibilities
-          included database design and integrating the Paytm payment gateway. I
-          also implemented CIBIL APIs and various net banking services for
-          different banks.Through this any person can check his/her cibil score
-          whether they are eligible to take loan or not.
+          The system enables easy test creation through an intuitive record-and-playback functionality, significantly reducing the need for manual scripting. It supports cross-platform testing, allowing test cases to be created and executed across multiple devices and platforms for broader coverage. With AI-driven test stability, the system adapts dynamically to UI changes, minimizing flaky tests and improving reliability. Additionally, it offers real-time execution monitoring, where AI tracks test runs, instantly detects failures, and suggests corrective actions during execution. Parallel test execution further enhances efficiency by allowing multiple test cases to run simultaneously, reducing overall testing time. Moreover, it integrates seamlessly with CI/CD pipelines, ensuring automated end-to-end testing throughout the development and deployment process.
         </p>
       </div>
       <br />

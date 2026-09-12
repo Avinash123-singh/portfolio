@@ -156,16 +156,10 @@ function Skills() {
                 style={{ background: group.accent }}
               ></div>
 
-              <div className="relative flex items-baseline justify-between gap-3 mb-1">
+              <div className="relative mb-1">
                 <h3 className="font-display text-lg font-semibold text-cream">
                   {group.title}
                 </h3>
-                <span
-                  className="text-[0.65rem] font-semibold tracking-[0.2em] uppercase"
-                  style={{ color: group.accent }}
-                >
-                  {group.items.length} tools
-                </span>
               </div>
               <p className="relative text-xs text-cream/50 mb-5">
                 {group.blurb}

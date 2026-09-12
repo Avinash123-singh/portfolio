@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-scroll";
 import { motion } from "framer-motion";
-import { FaNode, FaGitAlt, FaGithub, FaLinkedin } from "react-icons/fa";
-import { SiExpress, SiMongodb } from "react-icons/si";
+import { FaNode, FaGithub, FaLinkedin } from "react-icons/fa";
+import { SiExpress, SiMongodb, SiTypescript } from "react-icons/si";
 import { FaReact } from "react-icons/fa6";
 import { IoLogoJavascript } from "react-icons/io5";
-import { HiArrowDown } from "react-icons/hi";
 import { ReactTyped } from "react-typed";
 import photo from "../assets/panda-cutout.png";
 import Resume from "../assets/AvinashResume1.pdf";
@@ -15,10 +14,10 @@ import { getSectionColor } from "../theme/sectionColors";
 
 const stack = [
   { Icon: IoLogoJavascript, name: "JavaScript", color: "#F7DF1E" },
+  { Icon: SiTypescript, name: "TypeScript", color: "#3178C6" },
   { Icon: FaReact, name: "React", color: "#61DAFB" },
   { Icon: FaNode, name: "Node", color: "#83CD29" },
   { Icon: SiExpress, name: "Express", color: "#E8E8E8" },
-  { Icon: FaGitAlt, name: "Git", color: "#F05032" },
   { Icon: SiMongodb, name: "MongoDB", color: "#47A248" },
 ];
 
@@ -187,10 +186,6 @@ function Home() {
               </div>
             </div>
           </motion.div>
-        </div>
-
-        <div className="hidden md:flex justify-center mt-20 text-cream/40">
-          <HiArrowDown className="animate-bounce text-2xl" />
         </div>
       </div>
     </section>

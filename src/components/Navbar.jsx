@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-scroll";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { SECTION_THEME } from "../theme/sectionColors";
 
 const NAV_LINKS = [
   { to: "home", label: "Home" },
@@ -10,14 +11,54 @@ const NAV_LINKS = [
   { to: "contact", label: "Contact" },
 ];
 
+function useActiveSection() {
+  const [active, setActive] = useState("home");
+
+  useEffect(() => {
+    function compute() {
+      // Probe just under the fixed header — whichever section currently
+      // covers that line is the active one (including Contact itself).
+      const probe = 110;
+      let current = "home";
+
+      for (const section of SECTION_THEME) {
+        const el = document.querySelector(`section[name="${section.name}"]`);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= probe) current = section.name;
+      }
+
+      setActive((prev) => (prev === current ? prev : current));
+    }
+
+    compute();
+    window.addEventListener("scroll", compute, { passive: true });
+    window.addEventListener("resize", compute);
+    const settle = window.setTimeout(compute, 400);
+    return () => {
+      window.removeEventListener("scroll", compute);
+      window.removeEventListener("resize", compute);
+      window.clearTimeout(settle);
+    };
+  }, []);
+
+  return active;
+}
+
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const active = useActiveSection();
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-espresso/70 backdrop-blur-xl border-b border-cream/10">
       <div className="max-w-screen-2xl container mx-auto px-4 md:px-20">
         <div className="flex justify-between items-center h-20">
-          <div className="flex items-center gap-2 cursor-pointer">
+          <Link
+            to="home"
+            smooth={true}
+            duration={500}
+            className="flex items-center gap-2 cursor-pointer"
+          >
             <span className="w-2.5 h-2.5 rounded-full bg-lime shadow-[0_0_12px_rgba(205,252,138,0.8)]"></span>
             <div>
               <h1 className="font-display font-bold text-lg text-cream leading-tight">
@@ -25,25 +66,30 @@ function Navbar() {
               </h1>
               <p className="text-xs text-sand tracking-wide">Software Engineer</p>
             </div>
-          </div>
+          </Link>
 
           <nav className="hidden md:flex">
             <ul className="flex items-center gap-10 font-medium text-sm">
-              {NAV_LINKS.map(({ to, label }) => (
-                <li key={to}>
-                  <Link
-                    to={to}
-                    smooth={true}
-                    duration={500}
-                    offset={-80}
-                    spy={true}
-                    activeClass="text-lime"
-                    className="relative text-cream/80 hover:text-lime cursor-pointer transition-colors duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-px after:w-0 after:bg-lime hover:after:w-full after:transition-all after:duration-300"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
+              {NAV_LINKS.map(({ to, label }) => {
+                const isActive = active === to;
+                return (
+                  <li key={to}>
+                    <Link
+                      to={to}
+                      smooth={true}
+                      duration={500}
+                      offset={-80}
+                      className={`relative cursor-pointer transition-colors duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-px after:bg-lime after:transition-all after:duration-300 ${
+                        isActive
+                          ? "text-lime after:w-full"
+                          : "text-cream/80 hover:text-lime after:w-0 hover:after:w-full"
+                      }`}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
@@ -62,20 +108,25 @@ function Navbar() {
           }`}
         >
           <ul className="flex flex-col gap-4 font-medium">
-            {NAV_LINKS.map(({ to, label }) => (
-              <li key={to}>
-                <Link
-                  to={to}
-                  smooth={true}
-                  duration={500}
-                  offset={-80}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block text-cream/80 hover:text-lime cursor-pointer transition-colors"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
+            {NAV_LINKS.map(({ to, label }) => {
+              const isActive = active === to;
+              return (
+                <li key={to}>
+                  <Link
+                    to={to}
+                    smooth={true}
+                    duration={500}
+                    offset={-80}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`block cursor-pointer transition-colors ${
+                      isActive ? "text-lime" : "text-cream/80 hover:text-lime"
+                    }`}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

@@ -230,7 +230,7 @@ function Contact() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="h-full"
+                    className="h-full w-full"
                   >
                     <MessageSent onReset={() => setStatus("idle")} />
                   </motion.div>

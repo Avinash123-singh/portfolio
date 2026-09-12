@@ -2,12 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaPaperPlane } from "react-icons/fa";
 
-// Waypoints sampled along the SVG flight path below, expressed as percentages
-// so the plane tracks the drawn arc at any card width.
+// Waypoints as percentages so the plane tracks the arc at any card width.
 const FLIGHT = {
-  left: ["6%", "23%", "43%", "67%", "90%"],
-  top: ["79%", "62%", "43%", "30%", "25%"],
-  rotate: [-18, -26, -20, -12, -8],
+  left: ["4%", "22%", "45%", "70%", "92%"],
+  top: ["78%", "58%", "38%", "26%", "22%"],
+  rotate: [-18, -26, -18, -10, -6],
 };
 
 const CONFETTI = [
@@ -27,17 +26,18 @@ const CONFETTI = [
 
 function MessageSent({ onReset }) {
   return (
-    <div className="flex flex-col items-center justify-center text-center h-full py-6">
-      {/* Flight stage: the message physically leaves and gets stamped. */}
-      <div className="relative w-full max-w-[320px] h-[130px] mb-2">
+    <div className="flex flex-col justify-between h-full min-h-[380px] w-full">
+      {/* Flight stage — full width of the card. */}
+      <div className="relative w-full h-[140px] sm:h-[160px] shrink-0">
         <svg
           viewBox="0 0 300 120"
+          preserveAspectRatio="none"
           fill="none"
           className="absolute inset-0 w-full h-full overflow-visible"
           aria-hidden="true"
         >
           <motion.path
-            d="M20 95 C 90 95, 150 20, 272 30"
+            d="M12 95 C 90 95, 150 18, 288 28"
             stroke="#CDFC8A"
             strokeWidth="2"
             strokeLinecap="round"
@@ -48,12 +48,11 @@ function MessageSent({ onReset }) {
           />
         </svg>
 
-        {/* Launch pad glow. */}
         <motion.span
           initial={{ scale: 0.4, opacity: 0.8 }}
           animate={{ scale: 2.2, opacity: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="absolute left-[6%] top-[79%] -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-lime/50 blur-md"
+          className="absolute left-[4%] top-[78%] -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-lime/50 blur-md"
         ></motion.span>
 
         <motion.div
@@ -64,14 +63,17 @@ function MessageSent({ onReset }) {
             rotate: FLIGHT.rotate,
             opacity: [0, 1, 1, 1, 0],
           }}
-          transition={{ duration: 1.35, ease: "easeInOut", times: [0, 0.2, 0.5, 0.8, 1] }}
+          transition={{
+            duration: 1.35,
+            ease: "easeInOut",
+            times: [0, 0.2, 0.5, 0.8, 1],
+          }}
           className="absolute -translate-x-1/2 -translate-y-1/2 text-lime text-2xl drop-shadow-[0_0_12px_rgba(205,252,138,0.8)]"
         >
           <FaPaperPlane />
         </motion.div>
 
-        {/* Arrival: confetti burst then a rubber-stamp slam. */}
-        <div className="absolute left-[90%] top-[25%]">
+        <div className="absolute left-[92%] top-[22%]">
           {CONFETTI.map((piece, i) => {
             const radians = (piece.angle * Math.PI) / 180;
             return (
@@ -117,7 +119,7 @@ function MessageSent({ onReset }) {
             stiffness: 320,
             damping: 14,
           }}
-          className="absolute left-1/2 top-[62%] -translate-x-1/2 -translate-y-1/2 rounded-lg border-[3px] border-lime px-4 py-1.5"
+          className="absolute left-1/2 top-[58%] -translate-x-1/2 -translate-y-1/2 rounded-lg border-[3px] border-lime px-5 py-1.5"
         >
           <span className="font-display text-lg md:text-xl font-bold tracking-[0.2em] text-lime">
             DELIVERED
@@ -125,33 +127,36 @@ function MessageSent({ onReset }) {
         </motion.div>
       </div>
 
-      <motion.h3
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.7 }}
-        className="font-display text-3xl md:text-4xl font-bold text-cream mb-3"
-      >
-        Thank You!
-      </motion.h3>
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.8 }}
-        className="text-cream/70 max-w-xs text-base"
-      >
-        Your message is on its way. I read everything and will reply as soon as
-        I can.
-      </motion.p>
-      <motion.button
-        type="button"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.95 }}
-        onClick={onReset}
-        className="mt-8 text-sm font-semibold uppercase tracking-widest text-lime hover:underline"
-      >
-        Send another message
-      </motion.button>
+      {/* Copy + action — stretch across the full card width. */}
+      <div className="flex flex-col flex-1 justify-center items-stretch text-center px-1 pt-4 pb-1">
+        <motion.h3
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.7 }}
+          className="font-display text-3xl md:text-4xl font-bold text-cream mb-3"
+        >
+          Thank You!
+        </motion.h3>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.8 }}
+          className="text-cream/70 text-base md:text-lg leading-relaxed max-w-none w-full"
+        >
+          Your message is on its way. I read everything and will reply as soon
+          as I can.
+        </motion.p>
+        <motion.button
+          type="button"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.95 }}
+          onClick={onReset}
+          className="mt-8 self-center text-sm font-semibold uppercase tracking-widest text-lime hover:underline"
+        >
+          Send another message
+        </motion.button>
+      </div>
     </div>
   );
 }

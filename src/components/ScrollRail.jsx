@@ -32,8 +32,10 @@ function ScrollRail() {
       const total =
         document.documentElement.scrollHeight - window.innerHeight;
       const items = SECTION_THEME.map((s) => {
-        const el = document.getElementsByName(s.name)[0];
-        const top = el ? el.offsetTop : 0;
+        const el = document.querySelector(`section[name="${s.name}"]`);
+        const top = el
+          ? el.getBoundingClientRect().top + window.scrollY
+          : 0;
         const percent = total > 0 ? Math.min(Math.max(top / total, 0), 1) : 0;
         return { ...s, percent };
       });

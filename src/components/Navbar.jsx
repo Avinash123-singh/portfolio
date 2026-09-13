@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-scroll";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
-import { SECTION_THEME } from "../theme/sectionColors";
+import useActiveSection from "../hooks/useActiveSection";
 
 const NAV_LINKS = [
   { to: "home", label: "Home" },
@@ -10,40 +10,6 @@ const NAV_LINKS = [
   { to: "projects", label: "Projects" },
   { to: "contact", label: "Contact" },
 ];
-
-function useActiveSection() {
-  const [active, setActive] = useState("home");
-
-  useEffect(() => {
-    function compute() {
-      // Probe just under the fixed header — whichever section currently
-      // covers that line is the active one (including Contact itself).
-      const probe = 110;
-      let current = "home";
-
-      for (const section of SECTION_THEME) {
-        const el = document.querySelector(`section[name="${section.name}"]`);
-        if (!el) continue;
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= probe) current = section.name;
-      }
-
-      setActive((prev) => (prev === current ? prev : current));
-    }
-
-    compute();
-    window.addEventListener("scroll", compute, { passive: true });
-    window.addEventListener("resize", compute);
-    const settle = window.setTimeout(compute, 400);
-    return () => {
-      window.removeEventListener("scroll", compute);
-      window.removeEventListener("resize", compute);
-      window.clearTimeout(settle);
-    };
-  }, []);
-
-  return active;
-}
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

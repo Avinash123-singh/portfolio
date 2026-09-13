@@ -6,6 +6,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Active section accent — updated by useActiveSection for the scrollbar. */
+  --section-accent: #CDFC8A;
 }
 
 body {
@@ -23,10 +25,19 @@ body {
   @apply bg-espresso;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-coffee rounded-full;
+  background-color: var(--section-accent);
+  border-radius: 9999px;
+  border: 2px solid #1C1714;
+  transition: background-color 0.35s ease;
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-lime;
+  filter: brightness(1.15);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--section-accent) #1C1714;
 }
 
 /* Stop Chrome/Safari from slapping a bright white/yellow box over our dark

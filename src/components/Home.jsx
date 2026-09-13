@@ -48,7 +48,7 @@ function Home() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="md:w-1/2 order-2 md:order-1"
+            className="md:w-1/2 order-2 md:order-1 min-w-0 w-full"
           >
             <motion.div variants={item}>
               <SectionTag index="01" label="Introduction" color={getSectionColor("home")} />
@@ -60,20 +60,31 @@ function Home() {
               variants={item}
               className="font-display text-4xl md:text-6xl font-bold text-cream leading-tight"
             >
-              <span className="inline-block whitespace-nowrap">
-                I build{" "}
-                <ReactTyped
-                  className="text-lime"
-                  strings={[
-                    "real-time systems",
-                    "production APIs",
-                    "polished UIs",
-                  ]}
-                  typeSpeed={45}
-                  backSpeed={35}
-                  backDelay={1600}
-                  loop={true}
-                />
+              <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span className="shrink-0">I build</span>
+                {/* Invisible longest phrase reserves width so typing never
+                    expands the column and shoves the panda sideways. */}
+                <span className="relative inline-grid align-baseline text-lime">
+                  <span
+                    className="invisible col-start-1 row-start-1 whitespace-nowrap"
+                    aria-hidden="true"
+                  >
+                    real-time systems
+                  </span>
+                  <span className="col-start-1 row-start-1 whitespace-nowrap">
+                    <ReactTyped
+                      strings={[
+                        "real-time systems",
+                        "production APIs",
+                        "polished UIs",
+                      ]}
+                      typeSpeed={45}
+                      backSpeed={35}
+                      backDelay={1600}
+                      loop={true}
+                    />
+                  </span>
+                </span>
               </span>
             </motion.h1>
 
@@ -163,7 +174,7 @@ function Home() {
             initial={{ opacity: 0, scale: 0.85, rotate: -4 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="md:w-1/2 order-1 md:order-2 flex justify-center"
+            className="md:w-1/2 order-1 md:order-2 flex justify-center shrink-0"
           >
             <div className="relative w-64 h-64 md:w-[400px] md:h-[400px]">
               <div className="absolute -inset-10 rounded-[3.5rem] bg-[conic-gradient(from_0deg,#CDFC8A,#022E21,#1A0A0F,#7B5A48,#CDFC8A)] blur-3xl opacity-70 animate-spin-slow"></div>

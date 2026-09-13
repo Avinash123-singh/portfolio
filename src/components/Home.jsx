@@ -7,7 +7,7 @@ import { FaReact } from "react-icons/fa6";
 import { IoLogoJavascript } from "react-icons/io5";
 import { ReactTyped } from "react-typed";
 import photo from "../assets/panda-cutout.png";
-import Resume from "../assets/AvinashResume1.pdf";
+import Resume from "../assets/Avinash-Singh-Resume.pdf";
 import SectionTag from "./SectionTag";
 import SectionDivider from "./SectionDivider";
 import { getSectionColor } from "../theme/sectionColors";
